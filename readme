@@ -1,0 +1,88 @@
+过分原子化的样式会导致代码难以维护
+选择基础框架，比如AntDesign,Element-UI
+或者选择基于TailwindCSS打造的整体框架，如DaisyUI
+然后配合TailwindCSS的工具类，可以很方便的调整样式
+自己使用`@apply`组织一些常用组件
+核心
+
+过分原子化的样式会导致代码难以维护
+选择基础框架，比如AntDesign,Element-UI
+或者选择基于TailwindCSS打造的整体框架，如DaisyUI
+然后配合TailwindCSS的工具类，可以很方便的调整样式
+自己使用@apply组织一些常用组件
+
+安装
+tailwindcss 通过 npm 安装，并创建您的 tailwind.config.js 文件。
+csharp复制代码npm install -D tailwindcss 
+npx tailwindcss init
+
+配置您的模板路径
+在 tailwind.config.js 文件中添加所有模板文件的路径。
+css复制代码module.exports = { 
+content: ["./src/**/*.{html,js}"],
+theme: { extend: {}, },
+plugins: [],
+}
+
+将 Tailwind 指令添加到您的 CSS
+创建一个css文件，位置随意，比如src/main.css,并且将内容修改为如下：
+less复制代码@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+开始在您的 HTML 中使用 Tailwind
+将已编译的 CSS 文件添加到 <head> 并开始使用 Tailwind 来设置您的内容样式。
+xml复制代码<!doctype html> 
+<html> 
+<head> 
+<meta charset="UTF-8"> 
+<meta name="viewport" content="width=device-width, initial-scale=1.0"> <link href="/dist/output.css" rel="stylesheet"> 
+</head> 
+<body> 
+<h1 class="text-3xl font-bold underline"> Hello world! </h1> 
+</body> 
+</html>
+
+创建构建命令
+运行以下命令
+csharp复制代码npm init -y
+
+现在打开 package.json 文件，添加以下运行脚本：
+json复制代码"scripts": { "build": "tailwindcss -i ./src/main.css -o ./dist/output.css --watch" }
+
+这时候只要运行npm run build就可以自动监听你的页面改动并且实时编译了。
+体会
+将css进行零件化开发
+
+1.原生写法：需要什么写什么
+2.CSS组件化：
+封装了大量常见的UI，直接拿过来用，就可以快速的完成效果。完全不需要动手写css。例如：bootstrap，element ui，Antd，bulma的做法。局限性：不太灵活
+3.CSS零件化：将所有的css属性全部封装成语义化的类例如：
+需要一个宽度为12像素，只需要写w-3就可以。：将所有的css属性全部封装成语义化的类，比如你想要一个float:left，它已经帮你封装好了，你直接使用一个float-left就可以。需要一个宽度为12像素，只需要写w-3就可以。
+
+css复制代码<div class="p-6 max-w-sm mx-auto bg-white rounded-xl shadow-md flex items-center space-x-4"> 
+</div>
+
+
+bootstrap降低定制性，很难定制自己的类,TailwindCSS完全自由，你可以玩出自己的花样，你甚至可以通过Tailwind CSS，打造一套属于自己的类似bootstrap这样的ui框架。
+
+可定制化程度极高。
+不需要在写css。
+不需要再为class取个什么名字而苦恼
+响应式设计:<img class="w-16 md:w-32 lg:w-48" src="...">
+一套专业的UI属性值
+
+区别于内联样式
+
+有约束的设计。
+响应式设计。
+可以直接写鼠标滑过，点击等其他状态的样式。
+其他的很多特点，比如可维护性等等。
+
+缺点
+
+类名很长，熟悉使用有成本
+
+解决方法就是开头核心所说的，进行结合，取长补短。
+接下来会着重于新的css原子化框架的优点，以及与工程化相关的结合，确保在面试中成为亮点
+
